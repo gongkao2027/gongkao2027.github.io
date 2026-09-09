@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html data-page-node-id="nnJ2YSrBJDwHb8GMo2lfyb" lang="zh-CN">
+<head data-page-node-id="IkcexATSa2TdGEHdFTm4gm">
+<script data-page-node-id="ghgavvz0r3MD3jQlyIK2qH" src="/page/page_comm/inject.js"></script>
+  <meta data-page-node-id="zTHFo25GIAqZ23tH5j3nBI" charset="UTF-8">
+  <meta data-page-node-id="OBSyo9yIFzzZvrb8gm3MMs" content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport">
+  <title data-page-node-id="ZlwBcDCVZseJRHZJ84UlBe" data-pnid-children="GVmRtamVd6y2pz1eGTZZ96">公考备考 · 每日勾选</title>
+  <meta data-page-node-id="0vNX4PcewAal5qXcgejpyH" content="公考全职备考:每日详细计划勾选(可编辑)、每日复盘(可插图)、总体进度、报考日历,离线可用" name="description">
+  <meta data-page-node-id="HstMIB9k1E4cS9Q8AFHrzs" content="#009fe8" name="theme-color">
+  <link data-page-node-id="oj9WA7Qcc426ng3Cys4g1M" href="./manifest.json" rel="manifest">
+  <link data-page-node-id="ovUN673Xts8v72nfeQAM1V" href="./favicon-32.png" rel="icon" type="image/png">
+  <link data-page-node-id="m533shmcCkQxVakKh55i6E" href="./apple-touch-icon.png" rel="apple-touch-icon">
+  <meta data-page-node-id="zlfexflqNp1qrf5A6GMFkS" content="yes" name="apple-mobile-web-app-capable">
+  <meta data-page-node-id="u43jA8RKEijZ2AfFKQkcpD" content="default" name="apple-mobile-web-app-status-bar-style">
+  <style data-page-node-id="rifxJCmH30NF397FtbjOTP" data-pnid-children="xU01EQZRt5whyeNn1oys4l">
+    :root{
+      --blue:#009fe8; --blue-d:#0086c9; --ink:#1a2733; --ink-l:#5b6b7b;
+      --bg:#eef3f7; --card:#ffffff; --red:#e53935;
+      --ok:#2e9e5b; --orange:#f39c12; --teal:#00a8a8; --gray:#8a97a5;
+      --shadow:0 6px 24px rgba(16,42,67,.08);
+    }
+    *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+    html,body{margin:0; padding:0;}
+    body{
+      font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+      background:var(--bg); color:var(--ink); padding-bottom:44px;
+    }
+    /* ===== 顶部横幅 + 蓝猫 ===== */
+    .hdr{
+      position:relative; overflow:hidden;
+      background:linear-gradient(135deg,#009fe8 0%,#38c2f5 55%,#7ad8fb 100%);
+      padding:22px 20px 34px; color:#fff;
+    }
+    .hdr h1{margin:0; font-size:22px; font-weight:800; letter-spacing:.5px; max-width:72%;}
+    .hdr p{margin:6px 0 0; font-size:13px; opacity:.92;}
+    .cat{
+      position:absolute; right:-14px; top:6px; width:128px; height:128px; opacity:.98;
+      filter:drop-shadow(0 6px 10px rgba(0,0,0,.15));
+      animation:catup 1s cubic-bezier(.2,.8,.3,1.1) both;
+    }
+    @keyframes catup{from{transform:translateY(26px) rotate(-7deg); opacity:0;} to{transform:none; opacity:.98;}}
+    .badge{
+      display:inline-block; margin-top:16px;
+      background:rgba(255,255,255,.22); border:1px solid rgba(255,255,255,.45);
+      border-radius:999px; padding:4px 12px; font-size:12px; backdrop-filter:blur(4px);
+    }
+    .hdr-txt{position:relative; z-index:2;}
+
+    .wrap{max-width:720px; margin:0 auto; padding:0 14px;}
+    .hero{margin-top:-40px;}
+    .card{
+      background:var(--card); border-radius:20px; box-shadow:var(--shadow);
+      padding:18px; margin-bottom:16px;
+    }
+    .card h2{margin:0 0 4px; font-size:17px; font-weight:800; display:flex; align-items:center; gap:8px;}
+    .card h2 .dot{width:9px;height:9px;border-radius:50%;background:var(--blue);display:inline-block;flex:none;}
+    .card .sub{font-size:12.5px; color:var(--ink-l); margin:0 0 12px;}
+
+    /* ===== 双倒计时 ===== */
+    .dd-row{display:flex; align-items:center; justify-content:space-between; padding:9px 2px;}
+    .dd-row+.dd-row{border-top:1px dashed #e6eef4;}
+    .dd-name{font-size:13.5px; font-weight:700;}
+    .dd-name small{display:block; font-size:11px; color:var(--ink-l); font-weight:400; margin-top:1px;}
+    .dd-num{font-size:24px; font-weight:900; color:var(--blue-d);}
+    .dd-num small{font-size:12px; font-weight:600; color:var(--ink-l);}
+    .dd-row.main .dd-num{color:var(--red);}
+
+    /* ===== 总体进度 ===== */
+    .ov-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+    .ov-cell{background:#f6f9fc; border-radius:14px; padding:13px 10px; text-align:center;}
+    .ov-num{font-size:26px; font-weight:900; color:var(--blue-d); line-height:1.1;}
+    .ov-num em{font-style:normal; font-size:14px; font-weight:700;}
+    .ov-lab{font-size:11.5px; color:var(--ink-l); margin-top:4px;}
+    .ov-cell.hot .ov-num{color:var(--orange);}
+    .ov-cell.good .ov-num{color:var(--ok);}
+    .ov-note{font-size:11.5px; color:var(--ink-l); margin-top:10px; text-align:center;}
+
+    /* ===== 每日计划 ===== */
+    .day-nav{display:flex; align-items:center; gap:8px; margin-bottom:10px;}
+    .nav-btn{
+      flex:none; width:36px; height:36px; border-radius:11px; border:1px solid #dfe9f1;
+      background:#fff; font-size:17px; color:var(--blue-d); display:flex; align-items:center; justify-content:center;
+      cursor:pointer; user-select:none;
+    }
+    .nav-btn:active{background:#e8f5fe;}
+    .nav-btn[disabled]{opacity:.35;}
+    .day-date{flex:1; text-align:center;}
+    .day-date b{font-size:18px; font-weight:900; letter-spacing:.5px;}
+    .day-date span{font-size:11.5px; color:var(--ink-l); display:block; margin-top:1px;}
+    .nav-today{
+      flex:none; height:36px; padding:0 13px; border-radius:11px; border:none;
+      background:var(--blue); color:#fff; font-size:13px; font-weight:700; cursor:pointer;
+    }
+    .nav-today:active{background:var(--blue-d);}
+
+    .day-meta{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:6px;}
+    .chip{font-size:11.5px; font-weight:700; padding:3px 10px; border-radius:999px; display:inline-flex; align-items:center; gap:4px;}
+    .chip-stage{background:#e8f5fe; color:var(--blue-d);}
+    .chip-theme{background:#f1f4f8; color:var(--ink); font-weight:600;}
+    .t-normal{background:#e8f5fe; color:var(--blue-d);}
+    .t-half{background:#e0f7f7; color:var(--teal);}
+    .t-mock{background:#fef3e2; color:var(--orange);}
+    .t-rest{background:#eef1f5; color:var(--gray);}
+    .t-exam{background:#ffecec; color:var(--red);}
+
+    .stage-wrap{position:relative; margin:6px 0 4px;}
+    .stage-note{
+      font-size:12px; color:var(--ink-l); background:#f6f9fc; border-radius:10px;
+      padding:8px 36px 8px 12px; line-height:1.55;
+    }
+    .stage-edit-btn{
+      position:absolute; right:8px; top:7px; width:24px; height:24px; border:none; border-radius:8px;
+      background:#e8f1f8; color:var(--blue-d); font-size:12px; cursor:pointer;
+    }
+    .pre-banner{
+      display:none; background:#fff7e6; color:#8a5a00; border-radius:10px;
+      font-size:12px; padding:8px 12px; margin-bottom:8px;
+    }
+    .pre-banner.show{display:block;}
+
+    .slot-head{
+      display:flex; align-items:center; gap:8px; margin:14px 0 8px; font-size:12.5px; font-weight:800; color:var(--blue-d);
+    }
+    .slot-head::after{content:""; flex:1; height:1px; background:#e6eef4;}
+    .tasks{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px;}
+    .task{
+      display:flex; align-items:flex-start; gap:11px;
+      border:1px solid #e6eef4; border-radius:14px; padding:12px 13px; background:#fbfdfe;
+      transition:background .15s,border-color .15s; cursor:pointer;
+    }
+    .task:active{background:#eef7fd;}
+    .task.done{border-color:#cdeeda; background:#f4fcf7;}
+    .check{
+      flex:none; width:23px; height:23px; border-radius:8px; border:2px solid #c3d2de; margin-top:1px;
+      display:flex; align-items:center; justify-content:center; transition:all .15s; font-size:14px; color:transparent;
+    }
+    .task.done .check{background:var(--ok); border-color:var(--ok); color:#fff;}
+    .task-lab{flex:1; font-size:14px; font-weight:600; line-height:1.5;}
+    .task.done .task-lab{color:var(--ink-l); text-decoration:line-through; text-decoration-color:#b9c7d3;}
+
+    .prog-row{display:flex; align-items:center; gap:10px; margin-top:14px;}
+    .prog-bar{flex:1; height:8px; border-radius:99px; background:#e7eef4; overflow:hidden;}
+    .prog-bar i{display:block; height:100%; background:linear-gradient(90deg,#009fe8,#38c2f5); border-radius:99px; transition:width .3s;}
+    .prog-txt{font-size:13px; font-weight:800; color:var(--blue-d); flex:none;}
+
+    .tool-row{display:flex; gap:10px; margin-top:12px;}
+    .btn-mini{
+      flex:1; height:34px; border-radius:10px; border:1px solid #dfe9f1; background:#fff;
+      font-size:12.5px; font-weight:700; color:var(--blue-d); cursor:pointer;
+    }
+    .btn-mini:active{background:#e8f5fe;}
+
+    .stage-jump{display:flex; gap:8px; align-items:center; margin-top:12px;}
+    .stage-jump label{font-size:12px; color:var(--ink-l); flex:none;}
+    .stage-jump select{
+      flex:1; height:34px; border-radius:10px; border:1px solid #dfe9f1; background:#fff;
+      font-size:12.5px; color:var(--ink); padding:0 8px;
+    }
+
+    /* ===== 编辑模式 ===== */
+    .edit-head{display:flex; gap:8px; margin-bottom:12px;}
+    .edit-head input,.edit-head select{
+      height:38px; border:1.5px solid #dfe9f1; border-radius:10px; padding:0 10px;
+      font-size:13px; font-family:inherit; background:#fbfdfe; flex:1; min-width:0;
+    }
+    .edit-row{display:flex; gap:8px; margin-bottom:8px; align-items:flex-start;}
+    .edit-slot{
+      flex:none; width:100px; border:1.5px solid #dfe9f1; border-radius:10px; padding:8px;
+      font-size:12px; font-family:inherit; background:#fbfdfe;
+    }
+    .edit-text{
+      flex:1; min-height:70px; border:1.5px solid #dfe9f1; border-radius:10px; padding:8px 10px;
+      font-size:13px; font-family:inherit; line-height:1.5; background:#fbfdfe; resize:vertical;
+    }
+    .edit-del{
+      flex:none; width:32px; height:32px; border-radius:10px; border:none;
+      background:#ffecec; color:var(--red); font-size:15px; font-weight:800; cursor:pointer; margin-top:2px;
+    }
+    .btn-add{
+      width:100%; height:38px; border:1.5px dashed #bcd6ea; border-radius:12px;
+      background:#f4faff; color:var(--blue-d); font-size:13px; font-weight:700; cursor:pointer; margin:2px 0 12px;
+    }
+    .edit-actions{display:flex; gap:10px;}
+    .btn-save{
+      flex:1; height:38px; border:none; border-radius:11px;
+      background:var(--blue); color:#fff; font-size:13.5px; font-weight:700; cursor:pointer;
+    }
+    .btn-save:active{background:var(--blue-d);}
+    .btn-cancel{
+      flex:1; height:38px; border-radius:11px; border:1px solid #dfe9f1; background:#fff;
+      font-size:13.5px; font-weight:700; color:var(--ink-l); cursor:pointer;
+    }
+    .stage-form{background:#f6f9fc; border-radius:12px; padding:12px; margin:6px 0 4px;}
+    .stage-form input,.stage-form textarea{
+      width:100%; border:1.5px solid #dfe9f1; border-radius:10px; padding:8px 10px;
+      font-size:12.5px; font-family:inherit; background:#fff; margin-bottom:8px;
+    }
+    .stage-form textarea{min-height:60px; resize:vertical; line-height:1.5;}
+    .stage-form .edit-actions .btn-save,.stage-form .edit-actions .btn-cancel{height:34px;}
+
+    /* ===== 每日复盘(含图片) ===== */
+    .review-box{
+      width:100%; min-height:100px; border:1.5px solid #dfe9f1; border-radius:14px;
+      padding:12px 14px; font-size:14px; line-height:1.6; font-family:inherit; color:var(--ink);
+      background:#fbfdfe; resize:vertical; outline:none;
+    }
+    .review-box:focus{border-color:var(--blue); background:#fff;}
+    .review-foot{display:flex; align-items:center; justify-content:space-between; margin-top:10px; gap:10px;}
+    .review-cnt{font-size:11.5px; color:var(--ink-l);}
+    .btn-img{
+      height:34px; padding:0 12px; border-radius:10px; border:1px solid #dfe9f1; background:#fff;
+      font-size:12px; font-weight:700; color:var(--ink); cursor:pointer; flex:none;
+    }
+    .btn-img[disabled]{opacity:.4;}
+    .btn-save-rv{
+      height:34px; padding:0 16px; border:none; border-radius:10px;
+      background:var(--blue); color:#fff; font-size:12.5px; font-weight:700; cursor:pointer; flex:none;
+    }
+    .img-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:10px;}
+    .img-cell{position:relative; padding-top:100%; border-radius:12px; overflow:hidden; background:#eef3f7;}
+    .img-cell img{position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; cursor:zoom-in;}
+    .img-del{
+      position:absolute; top:5px; right:5px; width:22px; height:22px; border-radius:50%;
+      border:none; background:rgba(0,0,0,.55); color:#fff; font-size:12px; line-height:1; cursor:pointer;
+    }
+    #lightbox{
+      position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(10,16,24,.93);
+      display:none; align-items:center; justify-content:center; z-index:200; padding:24px; cursor:zoom-out;
+    }
+    #lightbox.show{display:flex;}
+    #lightbox img{max-width:100%; max-height:100%; border-radius:10px;}
+
+    /* ===== 报考日历 ===== */
+    .timeline{list-style:none; margin:0; padding:0; position:relative;}
+    .timeline::before{content:""; position:absolute; left:8px; top:8px; bottom:8px; width:2px; background:#e3ecf3;}
+    .timeline li{position:relative; padding:0 0 16px 32px;}
+    .timeline li::before{
+      content:""; position:absolute; left:3px; top:5px; width:12px; height:12px; border-radius:50%;
+      background:#fff; border:3px solid var(--blue);
+    }
+    .timeline li.done::before{border-color:var(--ok); background:var(--ok);}
+    .tl-date{font-size:11px; color:var(--ink-l);}
+    .tl-title{font-size:14px; font-weight:700; margin-top:2px;}
+    .tl-note{font-size:12px; color:var(--ink-l); margin-top:2px;}
+    .tl-tag{display:inline-block; font-size:10.5px; padding:1px 8px; border-radius:999px; margin-left:6px; vertical-align:1px;}
+    .tag-hot{background:#ffecec; color:var(--red);}
+    .tag-info{background:#e8f5fe; color:var(--blue-d);}
+
+    /* ===== 选岗路线 ===== */
+    .route{display:flex; flex-direction:column; gap:12px;}
+    .route-step{display:flex; gap:12px; align-items:flex-start; background:var(--bg); border-radius:14px; padding:12px 14px;}
+    .step-num{
+      flex:none; width:30px; height:30px; border-radius:9px; background:var(--blue);
+      color:#fff; font-weight:800; display:flex; align-items:center; justify-content:center; font-size:14px;
+    }
+    .step-body h4{margin:2px 0 3px; font-size:14px; font-weight:700;}
+    .step-body p{margin:0; font-size:12.5px; color:var(--ink-l); line-height:1.55;}
+
+    /* ===== 策略速查 ===== */
+    .strat{border-left:3px solid var(--blue); padding:2px 0 2px 12px; margin-bottom:14px;}
+    .strat:last-child{margin-bottom:0;}
+    .strat h4{margin:0 0 3px; font-size:13.5px; font-weight:800;}
+    .strat p{margin:0; font-size:12.5px; color:var(--ink-l); line-height:1.6;}
+
+    .foot{text-align:center; color:var(--ink-l); font-size:11.5px; margin-top:8px; line-height:1.7;}
+
+    .offline-strip{display:none; background:#fff7e6; color:#8a5a00; text-align:center; font-size:12px; padding:6px;}
+    .offline-strip.show{display:block;}
+    #toast{
+      position:fixed; left:50%; bottom:90px; transform:translateX(-50%) translateY(20px);
+      background:rgba(26,39,51,.92); color:#fff; font-size:13px; padding:9px 18px; border-radius:99px;
+      opacity:0; transition:opacity .25s,transform .25s; pointer-events:none; z-index:99; max-width:86vw; text-align:center;
+    }
+    #toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+
+    @media(min-width:520px){
+      .hdr h1{font-size:26px;}
+    }
+  </style>
+</head>
+<body data-page-node-id="HrKnJgQCCe80egjYmeaDTI">
+  <div data-page-node-id="rXyGc37PDA4T757gTk9osT" class="offline-strip" id="offlineStrip"><!--pnid:8enwAWBEehMCDJWCnUL6WF-->当前处于离线状态 · 记录保存在本机,联网后无需同步</div>
+
+  <div data-page-node-id="fWDxrSTWsx64YEIcLrASkN" class="hdr">
+    <div data-page-node-id="cgJ5lxIGto3iwL0LcszwJF" class="hdr-txt">
+      <h1 data-page-node-id="bkLtAw2kXGSLDYK916pVRS"><!--pnid:iLig1zuswsSrMgq8Jklrrn-->公考备考 · 每日勾选</h1>
+      <p data-page-node-id="TZpJMs8nYy12eXUXpDEFak"><!--pnid:9L7XwOx8D4Dwazymz0Jb1j-->主攻:司法所 · 基层检察院 | 目标:行测 72 / 申论 68</p>
+      <span data-page-node-id="7qMA9ajA7FFx97V052FEyQ" class="badge" id="todayLabel"></span>
+    </div>
+    <svg data-page-node-id="LboLuldW1hVp67crvSGXG9" aria-hidden="true" class="cat" viewBox="0 0 512 512">
+      <circle data-page-node-id="8am4uFZv4REnyCkDkgMSgd" cx="256" cy="256" fill="#009fe8" r="248"/>
+      <ellipse data-page-node-id="AnF9IXVd3KxpA04MELuw3T" cx="256" cy="330" fill="#fff" rx="168" ry="172"/>
+      <ellipse data-page-node-id="Neaiv93vxd0YZie9vV3bxg" cx="220" cy="205" fill="#fff" rx="34" ry="66" stroke="#1a1a1a" stroke-width="10"/>
+      <ellipse data-page-node-id="tSDpomTj7vNaB9cGpYWfBk" cx="292" cy="205" fill="#fff" rx="34" ry="66" stroke="#1a1a1a" stroke-width="10"/>
+      <ellipse data-page-node-id="ZxW8T1tmVHqtr0Wy9uepF6" cx="226" cy="180" fill="#1a1a1a" rx="11" ry="27"/>
+      <ellipse data-page-node-id="Ouk71ZWj4Z4phXUuOg0hrk" cx="286" cy="180" fill="#1a1a1a" rx="11" ry="27"/>
+      <circle data-page-node-id="d5F2qsHverlh178YzPGJBz" cx="230" cy="172" fill="#fff" r="5"/>
+      <circle data-page-node-id="hBTsRvlS15SwgTC27Rr63v" cx="290" cy="172" fill="#fff" r="5"/>
+      <circle data-page-node-id="xhuInjWkaKuMkTIoRzACde" cx="256" cy="268" fill="#e53935" r="27" stroke="#1a1a1a" stroke-width="6"/>
+      <line data-page-node-id="8nfFDE4Jrsnui2kHfhTp5R" stroke="#1a1a1a" stroke-width="7" x1="256" x2="256" y1="295" y2="318"/>
+      <path data-page-node-id="8tMfQbIXJodgBYH92rlfMO" d="M256 318 Q 206 368 148 300" fill="none" stroke="#1a1a1a" stroke-linecap="round" stroke-width="9"/>
+      <path data-page-node-id="sfZKYBtvaKxbQxqDjPmIn1" d="M256 318 Q 306 368 364 300" fill="none" stroke="#1a1a1a" stroke-linecap="round" stroke-width="9"/>
+      <g data-page-node-id="3NNAg8JQUh027SK2wWHQnH" stroke="#1a1a1a" stroke-linecap="round" stroke-width="9">
+        <line data-page-node-id="a8TlnEwxitUMub0e2x2iJM" x1="150" x2="52" y1="268" y2="242"/><line data-page-node-id="98ImGM5z9l3m6l7TAfhOaE" x1="138" x2="40" y1="308" y2="308"/><line data-page-node-id="Rm5kltbEJUab5c3lFoNfjD" x1="150" x2="52" y1="348" y2="374"/>
+        <line data-page-node-id="TTMa4lsYUOCm5xZ3eeDGXw" x1="362" x2="460" y1="268" y2="242"/><line data-page-node-id="djrEtO3qMRLozHOGsxjmju" x1="374" x2="472" y1="308" y2="308"/><line data-page-node-id="H3mQYb7xktyAq7gcg1SKfg" x1="362" x2="460" y1="348" y2="374"/>
+      </g>
+      <circle data-page-node-id="My8uwYKMGWmpKDjHW006bX" cx="256" cy="452" fill="#ffd23f" r="42" stroke="#1a1a1a" stroke-width="7"/>
+      <line data-page-node-id="uoTfbLyM5ruhHjHeAfYjnZ" stroke="#1a1a1a" stroke-width="6" x1="226" x2="286" y1="452" y2="452"/>
+      <line data-page-node-id="ByMl7HYewP8a7wyskovRIy" stroke="#1a1a1a" stroke-width="5" x1="256" x2="256" y1="452" y2="488"/>
+      <circle data-page-node-id="rNtbrLCJCXAZoQKCAVt2Sx" cx="256" cy="433" fill="#1a1a1a" r="9"/>
+    </svg>
+  </div>
+
+  <div data-page-node-id="XWSwQUPuDo4xPiqCcplWqL" class="wrap hero">
+
+    <!--pnid:4V11T34xTxQzhYAwLe5OKP--><!-- 双倒计时 -->
+    <div data-page-node-id="ygnNh7kJjtOq1W0EVcWvKu" class="card">
+      <h2 data-page-node-id="nlOOyhyIo1rehF2mUowwMk"><span data-page-node-id="ztOpjSlAnhwuAw4L6aASA8" class="dot"></span><!--pnid:zaJCsrhJ57F29qwmXMwFrx-->关键倒计时</h2>
+      <div data-page-node-id="howB60XtmsB3pyk9a5WSTA" class="dd-row main">
+        <div data-page-node-id="fIOIjJiV6x1UjkW6ff63yC" class="dd-name"><!--pnid:6NNJ2V72vE3t5HEoZjS3uD-->广东省考笔试<small data-page-node-id="B0WrIhiCsNjSrfzcSL5Rxb"><!--pnid:m3NSNjssO9ANEtUFVAa0HC-->主战场 · 预计 12/06(周日)</small></div>
+        <div data-page-node-id="RtEhr7YScLyN0wi1g61Vo7" class="dd-num"><span data-page-node-id="q9iQjBmoGqEoglI5bObQik" id="ddSk"><!--pnid:d3blxbJEFPR8gWVd1gzsQE-->--</span><small data-page-node-id="f2u3fP1VYkdEQW6e8hrLmk"><!--pnid:lQBeAVULH9FIQXfXTApD5q--> 天 <span data-page-node-id="5JCqvgaNTuOGrAD8HUphjT" id="ddSkH"><!--pnid:NZ2u9j0sNK6kth7gCyIq9q-->--</span><!--pnid:W1FSh4l7n2eqX8UUoKiu8z--> 时</small></div>
+      </div>
+      <div data-page-node-id="rIPeZtjQ8heHnX1k7wa89l" class="dd-row">
+        <div data-page-node-id="nI8lBe9nSlZNOCVHdM0wBv" class="dd-name"><!--pnid:zHdRJ76PRCU2YMiTLylcUe-->国考笔试<small data-page-node-id="oNEkIWzxpr7rxUepsOu2IT"><!--pnid:mFRKgwZIx61iBqswG3fu09-->顺便参加、当作练兵 · 预计 11/28(周六)</small></div>
+        <div data-page-node-id="vVJedxMyBKX6FafLR0QHyh" class="dd-num"><span data-page-node-id="vZkypRdCvkS9Nct8ebHFwr" id="ddGk"><!--pnid:cDzioeAZ1vJK6AbWIdc6hT-->--</span><small data-page-node-id="StN9rXvt1IYjqxpPn9zuhV"><!--pnid:i87W9bXse2K3S11yflgaYF--> 天 <span data-page-node-id="QRHltZRefxZlnsB05L2uz5" id="ddGkH"><!--pnid:4tNuvYe8V5RbHI9faguNsY-->--</span><!--pnid:xykIJsCoJY0ypkr3ix4kQ6--> 时</small></div>
+      </div>
+    </div>
+
+    <!--pnid:ZjyobkB5XKMXiYw77RPnzD--><!-- 总体进度 -->
+    <div data-page-node-id="ZjHVa6cgqkfFcAWOYz4Kw5" class="card">
+      <h2 data-page-node-id="f9SkI4MBWuzwiil7ik2Vku"><span data-page-node-id="ISE7YbukOHQ0MQ6gTd7Aop" class="dot"></span><!--pnid:UX13uMsr6XDkwuW034Bw9A-->总体进度</h2>
+      <p data-page-node-id="BBoUaJzOF7ICqAc7jmYXdh" class="sub"><!--pnid:mKhA4SjJIjcakwPp3MWpvK-->随每日勾选实时更新 · 连续达标 = 当日任务全部完成(休息日不计)</p>
+      <div data-page-node-id="G9FJiiAwgozCOVCSEK3jmS" class="ov-grid">
+        <div data-page-node-id="yhCUNT45axq6HxoUfM8IQ3" class="ov-cell"><div data-page-node-id="Yk8XIRRESPl3Su7uJAPkay" class="ov-num" id="ovTotal"><!--pnid:eIJ6VzisOSCw2WUEfcBBcM-->--</div><div data-page-node-id="V755aTIgLrLG3VUgkWzJiM" class="ov-lab"><!--pnid:MsQewCBjAlPRwIjtdg5cjB-->总任务数</div></div>
+        <div data-page-node-id="Rr8juoyry5J3hPtPrSwV1Z" class="ov-cell good"><div data-page-node-id="JgdoWXviYfVKvHS2qUvlgg" class="ov-num" id="ovDone"><!--pnid:AfjoUwaYKLvnWYOcApgJYm-->--</div><div data-page-node-id="UPKikLEwZECouBbXF97RZH" class="ov-lab"><!--pnid:kHN8BRvZVTWrdGkyN7yGuz-->已完成数</div></div>
+        <div data-page-node-id="vGx4h1Wxi7hBjGvNa9xVXi" class="ov-cell"><div data-page-node-id="D3uTcdYeBta1L8UsAD64KD" class="ov-num" id="ovRate"><!--pnid:5xKJVggRSjfCZ1PQ9P4Mci-->--<em data-page-node-id="0hyB4aFSCUTajF61pLocBf"><!--pnid:jnXuVDrW1UigsjKR6Q0XdN-->%</em></div><div data-page-node-id="ahbh9cbAWwgKwEu5fjX2oS" class="ov-lab"><!--pnid:0GhjdGoCNlB1CJRPLPHble-->总完成率</div></div>
+        <div data-page-node-id="RM9ELrf4lEcr9OxCGuVnEA" class="ov-cell hot"><div data-page-node-id="CDribgl3cj46kqrWMKmQSu" class="ov-num" id="ovStreak"><!--pnid:C2JmPXOXTBzQNBS9iN7poy-->--</div><div data-page-node-id="R854CJbYhoUkYfsLOYgXKB" class="ov-lab"><!--pnid:R1jWJvMJyyXOQMK1ExZwAz-->连续达标日(天)</div></div>
+      </div>
+      <div data-page-node-id="TiGSSetEweuHJ3AcDBN0MF" class="ov-note" id="ovNote"></div>
+    </div>
+
+    <!--pnid:JeBA0h56w15RtLKLf1y6g0--><!-- 每日详细计划 -->
+    <div data-page-node-id="0XlF4MyhgQ4h21mH85WlcJ" class="card">
+      <h2 data-page-node-id="cb52t2pS8rBbg1AZwueXSV"><span data-page-node-id="951qvgpBH8g1zwaxys5yor" class="dot"></span><!--pnid:Da1hZRZP91kG0V8AobDQcT-->每日详细计划</h2>
+      <p data-page-node-id="LoMYeSKpUjEwESKrYtcsVF" class="sub"><!--pnid:JnX1MKJXZRkxnlnSxtRHOT-->按全职备考计划表逐日执行 · 任务、主题、阶段均可编辑增减</p>
+
+      <div data-page-node-id="Rw5Gubvvl1WIFIGEA5DGeI" class="pre-banner" id="preBanner"></div>
+
+      <div data-page-node-id="DYidrP284sRTJmNg1CwYnH" class="day-nav">
+        <button data-page-node-id="bqRIj0fISgkxA9zwQqWu76" aria-label="前一天" class="nav-btn" id="btnPrev"><!--pnid:YNWkYvLpCpycGdMbfI1Mcu-->‹</button>
+        <div data-page-node-id="y7EEadkuKldyIYWIJUTF0i" class="day-date">
+          <b data-page-node-id="5ZALYf1SAzWk0zfLKG4KZW" id="dayDate"><!--pnid:CKgOPOocOifhAZHjiWD6a0-->--</b>
+          <span data-page-node-id="2B5GkDF8n7THPs7Vn9ynQZ" id="daySub"><!--pnid:iwPVBDzVDgOeNj2EZD6Qvn-->--</span>
+        </div>
+        <button data-page-node-id="zdBEZt9htU7ZhRePTPZbD1" class="nav-today" id="btnToday"><!--pnid:8XmJpB6VRAbEHKepmDdkvO-->今天</button>
+        <button data-page-node-id="7K4y17hZUWaQyvCYMR83xg" aria-label="后一天" class="nav-btn" id="btnNext"><!--pnid:oLaSBt8BldyIXXmwDykPmH-->›</button>
+      </div>
+
+      <div data-page-node-id="oAHoEmYRyqZ3ejto5FmT6F" id="viewMode">
+        <div data-page-node-id="4QGu7dtYlakEiVTl3XPxCD" class="day-meta" id="dayMeta"></div>
+        <div data-page-node-id="DmHTcAqnUkyNbkasfHxDEy" class="stage-wrap" id="stageWrap">
+          <div data-page-node-id="3tjWq7lDrJ1ygM2Pi7HgS8" class="stage-note" id="stageNote"></div>
+          <button data-page-node-id="X92K1CYP7UIu7hMejORSfj" class="stage-edit-btn" id="btnStageEdit" title="编辑阶段"><!--pnid:qqMyUrtJ9ctl1ED7zmCZPU-->✎</button>
+        </div>
+        <div data-page-node-id="IsSJSEMEaCN8neADTUtWgm" id="taskArea"></div>
+        <div data-page-node-id="KfOH4FPTIqNTMKxTLUjI9c" class="prog-row">
+          <div data-page-node-id="Ckn7QeARXwBTlg0yqpJQ0z" class="prog-bar"><i data-page-node-id="HUofhLN84QJnCkyJTxbq2F" id="progBar" style="width:0%"></i></div>
+          <span data-page-node-id="SA8fEnBLQsxcFrDH5zXPEM" class="prog-txt" id="progText"><!--pnid:4K2J4yZhQACM5p4fHuLAvW-->0 / 0</span>
+        </div>
+        <div data-page-node-id="u3kzrrM2jiqncfqQADQo6B" class="tool-row">
+          <button data-page-node-id="24v8gmmLEwSM5Rv2YqEkPg" class="btn-mini" id="btnEditDay"><!--pnid:P2s9Sj8TWXv4NVtGHCJ8Cn-->✎ 编辑今日(任务/主题/类型)</button>
+        </div>
+      </div>
+
+      <div data-page-node-id="I6tLU6PMIjAsQpvxCeIxog" id="editMode" style="display:none"></div>
+
+      <div data-page-node-id="j1nvB11RdH331ioYmjQ2Bn" class="stage-jump" id="stageJump">
+        <label data-page-node-id="mz6c6CY1A67GxG8pZTNlaf"><!--pnid:QlFYAZjcwnunXO9trZGEEB-->跳转阶段</label>
+        <select data-page-node-id="0LQOfRSBxAjp3HRHLKZt3b" id="stageSel"></select>
+      </div>
+    </div>
+
+    <!--pnid:eADNDa6rjnfWd803d9rvfn--><!-- 每日复盘 -->
+    <div data-page-node-id="xcSnRyeWQJDNm8tI3j4lbf" class="card">
+      <h2 data-page-node-id="6gnNbOKbI5KJSL1FleeJvr"><span data-page-node-id="HXTA6u1xA7IDvUJiLxWfqk" class="dot"></span><!--pnid:UVd7DZJs97yTrN44UkgYOh-->每日复盘</h2>
+      <p data-page-node-id="q3YC1Oml95isIAzRsihNhA" class="sub" id="reviewSub"><!--pnid:kmaYYugI5xxcUIVTjAwUol-->计划要求:每天把结论填进当日复盘(顺序要不要调 / 补哪里)</p>
+      <textarea data-page-node-id="PbQRs3UsuR472f8wfhFc0f" class="review-box" id="reviewBox" placeholder="今日复盘:&#10;1. 顺序/时间:资料分析有没有时间做完?&#10;2. 错题主因:&#10;3. 明日要补哪里:"></textarea>
+      <div data-page-node-id="Wtqa5Pn03AWc2CCc7grGYf" class="img-grid" id="imgGrid"></div>
+      <div data-page-node-id="CjcAN1x3VC6iCUu9fdPLWp" class="review-foot">
+        <span data-page-node-id="XbBq5DQuFclMaNMCbnz4Kn" class="review-cnt" id="reviewCnt"><!--pnid:uj86CJvjcmwmEKhGgp4Hef-->0 字 · 自动保存</span>
+        <button data-page-node-id="rqI65c3Es9FeAV89UDUbsp" class="btn-img" id="btnAddImg"><!--pnid:OkxmVnmWySnFMJGAA4B2tL-->📷 插入图片(0/5)</button>
+        <button data-page-node-id="mAkp10S7jN64HJivOkFA3S" class="btn-save-rv" id="btnSaveReview"><!--pnid:KxSamwRqLVT0t4NIfBDBSY-->保存</button>
+      </div>
+      <input data-page-node-id="i0jYasPoLIOuW7kVsZ2z8H" accept="image/*" id="imgInput" multiple type="file" style="display:none">
+    </div>
+
+    <!--pnid:ZN54tDr7E4QJZjT4Is0vlJ--><!-- 报考日历 -->
+    <div data-page-node-id="mdEaNdIaGPP8wW5y1Oj1M0" class="card">
+      <h2 data-page-node-id="vL8Z94biMZGb4t2NYz8gtx"><span data-page-node-id="lCLcr3Mnp4a74AG7l7qqp6" class="dot"></span><!--pnid:do8B6bxzEb8iognUJhQN7j-->报考日历</h2>
+      <p data-page-node-id="Ln6YHxCviZo522nlaeZNsX" class="sub"><!--pnid:qtoTEEeuDZuQ2Tj56UxreT-->为预计时间,以官方公告为准 · 点左圆点标记已完成节点</p>
+      <ul data-page-node-id="2YHFOilceMGdfr6GaMoCdK" class="timeline">
+        <li data-page-node-id="b768ewhQuSX7wYPsI8y9Ig" data-key="k-plan-start">
+          <div data-page-node-id="iu9CRp00J9HGqrJDm1MRE4" class="tl-date"><!--pnid:bAQQjtxVXcEWwAVk4SyJkq-->09-10</div>
+          <div data-page-node-id="Do4SpDJwLkIPQqVKxj5Liw" class="tl-title"><!--pnid:wM671662gqdLrboOIDlKJJ-->全职备考计划启动 <span data-page-node-id="PJSoNOZyoitPcn3TsyJQP6" class="tl-tag tag-info"><!--pnid:whIjyXgWCFMHEU9gfHIn3X-->阶段A</span></div>
+          <div data-page-node-id="ms5D4coo6bKbuV58JlJYeY" class="tl-note"><!--pnid:SAkUNVAWR9P9HxzevX4xvD-->摸底 · 重塑做题顺序 · 攻资料/数量两大短板</div>
+        </li>
+        <li data-page-node-id="bxiU1CEIEGjHKA7NL4iPGi" data-key="k-gk-ann">
+          <div data-page-node-id="Ldk7cqdDGNW3DDD0xt2sVN" class="tl-date"><!--pnid:E3DOaVLGoBeyUgmIEe5YeY-->10-14(预计)</div>
+          <div data-page-node-id="tpevaCE6gTNPbUQrliJIgs" class="tl-title"><!--pnid:bxuEoOcbQ36TITLxdBt4Sk-->国考公告 & 职位表 <span data-page-node-id="vwDpRzA8uJDxuvK39wxQrM" class="tl-tag tag-hot"><!--pnid:5YDe5dzllrG0hpd0W2o4qV-->关键</span></div>
+          <div data-page-node-id="hzFDxm2MSeVEQZI64paiYB" class="tl-note"><!--pnid:yxPd5xZ9tncWSg0ri6LFU6-->用「法学本科+法考A证+非应届+面貌不限」筛司法所/检察院意向岗</div>
+        </li>
+        <li data-page-node-id="KpxHsu0lEsj168MJ5GdWfx" data-key="k-gk-reg">
+          <div data-page-node-id="pd5f2zcWO7Rc04d63NC01k" class="tl-date"><!--pnid:7uWmR4JsjpLdkzyobowGjB-->10-15 ~ 10-24</div>
+          <div data-page-node-id="n2Xr6hH3oVo3xPlrYxVIY2" class="tl-title"><!--pnid:AHrpdnSjM1tVgXexaz6N4K-->国考报名 <span data-page-node-id="aVvWSam0WPkgT1cSikc7xw" class="tl-tag tag-hot"><!--pnid:kP5YE5Egaz42XVgYbEyC0c-->10天窗口</span></div>
+          <div data-page-node-id="CLCoLI0xR6yCaQH3K2bv2L" class="tl-note"><!--pnid:Fa01dYlqoLVkO3dnvBnwnY-->锁 3-5 个意向岗,看实时报名人数再提交</div>
+        </li>
+        <li data-page-node-id="FKhyZ9lBXgw7flzNfVXeEi" data-key="k-sk-ann">
+          <div data-page-node-id="SSzwb0tElRiLirXVOLoYmf" class="tl-date"><!--pnid:Io9r76e62CXhhsM48e5q2d-->10-19 前后(预计)</div>
+          <div data-page-node-id="HUhdBib1XN7fWH1buQrwno" class="tl-title"><!--pnid:q7slv1jjLNRftcWx05Q7xA-->广东省考公告 & 报名 <span data-page-node-id="00lL8Y98jD3wCbdoTECslp" class="tl-tag tag-hot"><!--pnid:bKLVBdFP9VVLXjr0dMPugI-->约5天</span></div>
+          <div data-page-node-id="LCwYwAEi32Thz8uYRk9IbA" class="tl-note"><!--pnid:wYjY6TrWHyjgliPKhr0bBc-->重点筛司法所、基层检察院岗(多考申论二)</div>
+        </li>
+        <li data-page-node-id="VJxtfROeKLaDbSI0Ba94tj" data-key="k-gk-ticket">
+          <div data-page-node-id="gSllqFoSOVb65qMhbmkQgl" class="tl-date"><!--pnid:2Z8Sj014bHiszet3X2SmuM-->11-24 起(预计)</div>
+          <div data-page-node-id="DEIY2ph5g8Jzu4xBcn1dng" class="tl-title"><!--pnid:aH34DnKA8NK9s2PUlo3Q8T-->国考准考证打印</div>
+          <div data-page-node-id="eBtAQmDZuMR7yERa833KT6" class="tl-note"><!--pnid:TtgeXujEW3htCX7FhG33qH-->打印后核对考点,异地提前踩点</div>
+        </li>
+        <li data-page-node-id="rGxdMZjkhei1R7e3TJPKdM" data-key="k-gk-exam">
+          <div data-page-node-id="YLqsyzIItSXMBZJ3vlF2XG" class="tl-date"><!--pnid:IK9GqYEW0EH4VmCcUc8WtB-->11-28(预计)</div>
+          <div data-page-node-id="g80Wc4W4hDTkq00mm4FrTz" class="tl-title"><!--pnid:5OUQWDjZN8V4kMtVIog097-->国考笔试 <span data-page-node-id="fXfhZ2bOxM79ZUGVO5znkH" class="tl-tag tag-hot"><!--pnid:Em8cJKivfqUmOAtdr82vop-->练兵</span></div>
+          <div data-page-node-id="tpWElika4nj9jyF6jAWDxL" class="tl-note"><!--pnid:FmCBfTNuNBHXHieEaYiI0M-->上午行测 · 下午申论 · 考完即忘,切回广东卷</div>
+        </li>
+        <li data-page-node-id="cD1viRnm8LL5zaa7y3OhbR" data-key="k-sk-ticket">
+          <div data-page-node-id="3wHKQmZ8crDzTqeyLJjAfC" class="tl-date"><!--pnid:6WWqi61hswBrKNliZOhfer-->12-02 起(预计)</div>
+          <div data-page-node-id="rQurQqglVM9Rk4z2AGLL5v" class="tl-title"><!--pnid:V7a60e5f6k9HYiDRIMtrw9-->广东省考准考证打印</div>
+          <div data-page-node-id="EJWHjXIl6g3DwvTkujb9pX" class="tl-note"><!--pnid:OdFJm94rbxHG6CggX5WpOf-->核对深圳/汕头考点路线</div>
+        </li>
+        <li data-page-node-id="Uu5UCfNNytisMyEOuKLlA1" data-key="k-sk-exam">
+          <div data-page-node-id="xj92EgFf5SCByp4ToI216t" class="tl-date"><!--pnid:aSL491YiLrPMnbk5CUO67L-->12-06(预计)</div>
+          <div data-page-node-id="0H1nvFr0MC5IlTb3pBhpl5" class="tl-title"><!--pnid:sq37IWSQsOq9NnhM6j05Zp-->广东省考笔试 <span data-page-node-id="nH6vEl6myjyHurDhcbDP6l" class="tl-tag tag-hot"><!--pnid:0KpjiWJf4H7JpavWdegqP1-->主战场</span></div>
+          <div data-page-node-id="PImhEdCIBs9xCHTQ05XxNO" class="tl-note"><!--pnid:rOuXRO1lSaklSjaUUuYJlv-->行测定稿顺序:资料→判断→言语→政治常识→数量挑题</div>
+        </li>
+        <li data-page-node-id="bmn3fEe0W8q6iTojD0aJdK" data-key="k-sy-ann">
+          <div data-page-node-id="Ht5HBjLqHFCRFjx6OvrM5h" class="tl-date"><!--pnid:LyfST3GRg6q1grLyGJncxH-->11月底-12月初(预计)</div>
+          <div data-page-node-id="YpDkKSQZee4foLmIXajbaw" class="tl-title"><!--pnid:Yd6vQMyymtahmfZTf2FJZB-->深圳事业编市属公告 & 报名</div>
+          <div data-page-node-id="VVnRf9SK90NwHQhcS3BXPB" class="tl-note"><!--pnid:PJ6WR4oQUTOdYMSGwafNFc-->行测100题/90min + 公基;留深圳保底的第二枪</div>
+        </li>
+        <li data-page-node-id="NtBGxgy4Qxgx5YEGZjtsXa" data-key="k-sy-exam">
+          <div data-page-node-id="WSUR9iVkHTGgDQInAaw15Z" class="tl-date"><!--pnid:3IKJvuf0R6cGV1EDgG0S63-->12-27(预计)</div>
+          <div data-page-node-id="2mdS6lEUuRIqeNNqsqvcdV" class="tl-title"><!--pnid:vr7KF34gfKST90tI6GktFN-->深圳事业编市属笔试</div>
+          <div data-page-node-id="i1r4XRguFhzWgVKBziyBPH" class="tl-note"><!--pnid:v0lgq0qA50BPMR0fERsk9b-->公基多选题排除法,宁缺毋滥</div>
+        </li>
+        <li data-page-node-id="FKQ6FSleOICoxYgDgLltGU" data-key="k-score">
+          <div data-page-node-id="mQ0kkkLq8Zx2yRPOXtKx9p" class="tl-date"><!--pnid:CGEWq922WnIOyjztJGVH9v-->2027-01</div>
+          <div data-page-node-id="I3qOJB0F94O9SPzAWoZN9r" class="tl-title"><!--pnid:zDhTp2vUymdmHQtKksFhNx-->成绩查询</div>
+          <div data-page-node-id="RwDWqOfpxE2h21ELX15TX2" class="tl-note"><!--pnid:1FJHRoFnlfnui9qOEuaSXl-->省考约1月中上旬 · 国考约1月 · 事业编约1月下旬</div>
+        </li>
+        <li data-page-node-id="NLgXoPaVKTlYYRicaqXM0s" data-key="k-interview">
+          <div data-page-node-id="RqOP46jyNgwzCqlKZ9ZkjV" class="tl-date"><!--pnid:nZV1YJj3TwWquN8dLItXyd-->2027-02 ~ 04</div>
+          <div data-page-node-id="XqdPwIRNFwkQPhJo6ApHMg" class="tl-title"><!--pnid:av6ZcqnV9kjRje4onX1yFh-->面试 · 体检 · 政审</div>
+          <div data-page-node-id="CGTHr9LXMjFO7gFED6jUyX" class="tl-note"><!--pnid:UQSzBUk6gfix4T3p31mkxE-->结构化面试,提前备好证书原件扫描件</div>
+        </li>
+      </ul>
+    </div>
+
+    <!--pnid:1FnyEXAev49LvnGPsf9c0B--><!-- 选岗路线 -->
+    <div data-page-node-id="du2yDAucLCgrDnHqoRojqw" class="card">
+      <h2 data-page-node-id="JI8FgHsBml401GnZewhku8"><span data-page-node-id="nsk15FzRS9YauUgHDl58Zb" class="dot"></span><!--pnid:RdLgl3S2XkDvboJWz6wckf-->选岗路线</h2>
+      <p data-page-node-id="5879RgHp9EPe256jPi0YxR" class="sub"><!--pnid:guPerC4dmygsDHqoXLj8wA-->主攻司法所 + 基层检察院 · 冲深圳、汕头保底</p>
+      <div data-page-node-id="GLEUy4dtoKOO5DihgMqnF7" class="route">
+        <div data-page-node-id="dqVgO0aaNm5vY3a2jClNmM" class="route-step">
+          <div data-page-node-id="Phcn5pN5n3lR5p6zGClI4K" class="step-num"><!--pnid:QJkChWEDArbk3V95UaocSG-->1</div>
+          <div data-page-node-id="B3r1EmcqhRv2E7BLPPQYi1" class="step-body">
+            <h4 data-page-node-id="IrN2kt6MRlykCGH6CcFpzO"><!--pnid:C6N14QN9qBlkEu4uPHUSZX-->主攻岗位:司法所 + 基层检察院</h4>
+            <p data-page-node-id="w2SVct6hm0izALWhaJZVaS"><!--pnid:PsipAMRH0clzc916Ljq1OP-->法考A证对口基层司法行政岗与检察助理岗,专业壁垒高、竞争相对可控,是法学科班+证书的最优解</p>
+          </div>
+        </div>
+        <div data-page-node-id="60NYaPwMnsvoeoR7MWidIN" class="route-step">
+          <div data-page-node-id="s4N0BPXOS9nfYdB59E8iuj" class="step-num"><!--pnid:6N6iJbc8uignNL5wDECg6R-->2</div>
+          <div data-page-node-id="UfdsR7XoXuEwJKk1BRMGjn" class="step-body">
+            <h4 data-page-node-id="vAl4v5LppT77HrwknfH9bi"><!--pnid:6JdrOuSWmmixCV0d9aNhQc-->科目对齐:主刷申论二</h4>
+            <p data-page-node-id="H3eOK9v1s71ThqYFe0ejiy"><!--pnid:ruIEE6Z5rYEzDOF8OSBEHN-->司法所/乡镇街道类岗位多考申论二,集中火力刷申论二;目标分数:行测 72 · 申论 68 保底</p>
+          </div>
+        </div>
+        <div data-page-node-id="AOqWW8jCq5CKuAauUgcxuv" class="route-step">
+          <div data-page-node-id="x1e5SO27XbpGu7dlU6V6Up" class="step-num"><!--pnid:iDQnQUfilZvHJVZJAnBgDA-->3</div>
+          <div data-page-node-id="fQY82Xsc1pJjRkEoG8l9UV" class="step-body">
+            <h4 data-page-node-id="popHtK2ZcAQo5DfYDRciXp"><!--pnid:PRLj7dP7FT30koenZRG4cD-->区域策略:冲深圳、保汕头</h4>
+            <p data-page-node-id="1gAtYblP5FRcmOOSL9rUeB"><!--pnid:aeBfJLt4mwrOndca7RvbFK-->深圳区级司法所/基层检察院优先冲;汕头家乡属地+竞争相对温和,作为稳妥保底</p>
+          </div>
+        </div>
+        <div data-page-node-id="hu2pJhCcPxhVzActvclYky" class="route-step">
+          <div data-page-node-id="T0VINX0sTE3e4PtisbmjNA" class="step-num"><!--pnid:pYueV6vEBhluN1lY9OBSmm-->4</div>
+          <div data-page-node-id="oKMGqxdTmhGEQQiCYhO0fL" class="step-body">
+            <h4 data-page-node-id="MZR9tpj9S44vnliBneLuzT"><!--pnid:QEpbvxtrrmkLTcVkOijMcM-->报名期看实时数据</h4>
+            <p data-page-node-id="fIppCm3Fq88ABgi7ogfiuZ"><!--pnid:9ISR8rHTIKt3gRjsdGVraF-->固定条件「法学本科+法考A证+非应届+面貌不限」筛岗,锁 3-5 个意向岗,看实时报名人数与近3年进面分再定</p>
+          </div>
+        </div>
+        <div data-page-node-id="VHVkmO3w4s8JLupHEuK56T" class="route-step">
+          <div data-page-node-id="CUMOok3WlMQkNBKLgV79Wr" class="step-num"><!--pnid:vwtueHPrawbvhiIaG7hDQk-->5</div>
+          <div data-page-node-id="alnlPcWdJZtWt9nED0P9gM" class="step-body">
+            <h4 data-page-node-id="ObML9nh1DEebao5Ch325QJ"><!--pnid:e1LX5TtFOjMNnug6K63yTQ-->梯队递进</h4>
+            <p data-page-node-id="tfFnCc48CbmJ4oNlvQezBc"><!--pnid:mzFL7qkA3EKdeWSByPaDjF-->省考为主战场、国考练兵、深圳事业编(司法行政辅助/法律岗)保底留深,三线递进不空档</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--pnid:HjHpGUI06hZOySeBxKTcOx--><!-- 策略速查卡 -->
+    <div data-page-node-id="G90KNyb6hVfunQ7uzbRluG" class="card">
+      <h2 data-page-node-id="jckWxafPu0JBcrq4fBgYde"><span data-page-node-id="zADWhwj6Z4abiO1rH5DeHT" class="dot"></span><!--pnid:TBKih0Gtx6oOcz0QyYdPiJ-->笔试策略速查卡</h2>
+      <p data-page-node-id="ngarF25wFcEO4NSadfM96Q" class="sub"><!--pnid:ykys8ZxwZq7CMa6jc5qwrp-->原计划表附页「打印贴墙」版 · 考前重点回看</p>
+      <div data-page-node-id="Q9Pq99YxEXPQRjM6Tsd1Kn" id="stratArea"></div>
+    </div>
+
+    <div data-page-node-id="qHbJ9v51MTXWogDGGMXTEG" class="foot"><!--pnid:nsDjDwTOZsmKdvxp2AopzR-->
+      数据源自《2026国考_广东省考_全职备考计划表_含深圳事业编》 · 均为预计时间,以官方公告为准<br data-page-node-id="XNJbUmpQf0UvovOPym34x4"><!--pnid:Vr87ECLBpfvAEannSJQWgp-->
+      勾选/复盘/图片/编辑均保存在本机 · 清除浏览器数据前请注意备份
+    </div>
+  </div>
+
+  <div data-page-node-id="jHDXV6pcnaYu2zlDbzDYTD" id="lightbox"><img data-page-node-id="weIgv3CEiYiW80MPtOYo6K" alt id="lightboxImg"></div>
+  <div data-page-node-id="3vZ7Zid1mHB6DiBHJ2SPEy" id="toast"></div>
+
+  <script data-page-node-id="0LFHaxlo1HvK1TqFb238D9" src="./plan-data.js"></script>
+  <script data-page-node-id="QFZoyveTa3bC0WDLlmz7N1" data-pnid-children="cMW5CxL1b4O5PiztY9izYD">
+    (function(){
+      "use strict";
+      var $=function(id){return document.getElementById(id);};
+      function p2(n){return (n<10?"0":"")+n;}
+      function fmt(d){return d.getFullYear()+"-"+p2(d.getMonth()+1)+"-"+p2(d.getDate());}
+
+      /* ================= 数据层:可编辑副本存本机 ================= */
+      var DB_KEY="gk_db_v1";
+      var db=null;
+      function loadDb(){
+        try{db=JSON.parse(localStorage.getItem(DB_KEY));}catch(e){db=null;}
+        if(!db||!db.plan||!db.stages){
+          db={plan:JSON.parse(JSON.stringify(PLAN)),stages:JSON.parse(JSON.stringify(STAGES))};
+          saveDb();
+        }
+      }
+      function saveDb(){
+        try{localStorage.setItem(DB_KEY,JSON.stringify(db));}
+        catch(e){toast("本机存储已满,编辑内容可能未保存");}
+      }
+      loadDb();
+
+      var todayIso=fmt(new Date());
+
+      /* ---- 头部 ---- */
+      var week=["日","一","二","三","四","五","六"];
+      var TODAY=new Date();
+      $("todayLabel").textContent=(TODAY.getMonth()+1)+"月"+TODAY.getDate()+"日 · 周"+week[TODAY.getDay()]+" 奋进中";
+
+      /* ---- 双倒计时 ---- */
+      function ddTick(){
+        var now=new Date();
+        function calc(iso){
+          var t=new Date(iso+"T09:00:00");
+          var diff=t-now;
+          if(diff<=0)return[0,0];
+          return[Math.floor(diff/86400000),Math.floor(diff%86400000/3600000)];
+        }
+        var sk=calc(META.examShengkao),gk=calc(META.examGuokao);
+        $("ddSk").textContent=sk[0];$("ddSkH").textContent=p2(sk[1]);
+        $("ddGk").textContent=gk[0];$("ddGkH").textContent=p2(gk[1]);
+      }
+      ddTick();setInterval(ddTick,30000);
+
+      /* ---- 工具 ---- */
+      function typeOf(t){
+        t=t||"";
+        if(t.indexOf("考试")>-1)return{sym:"★",cls:"t-exam"};
+        if(t.indexOf("模考")>-1)return{sym:"■",cls:"t-mock"};
+        if(t.indexOf("半天")>-1||t.indexOf("轻量")>-1)return{sym:"◐",cls:"t-half"};
+        if(t.indexOf("休息")>-1)return{sym:"●",cls:"t-rest"};
+        return{sym:"▲",cls:"t-normal"};
+      }
+      function stageOf(id){
+        for(var i=0;i<db.stages.length;i++){if(db.stages[i].id===id)return db.stages[i];}
+        return null;
+      }
+
+      /* ---- 定位今天 ---- */
+      var curIdx=0;
+      function locate(){
+        for(var i=0;i<db.plan.length;i++){if(db.plan[i].date===todayIso)return i;}
+        return todayIso<db.plan[0].date?0:db.plan.length-1;
+      }
+      curIdx=locate();
+
+      /* ---- 勾选/复盘存储 ---- */
+      function planKey(d){return "gk_plan_"+d;}
+      function loadPlan(d){try{return JSON.parse(localStorage.getItem(planKey(d)))||{};}catch(e){return {};}}
+      function savePlan(d,v){localStorage.setItem(planKey(d),JSON.stringify(v));}
+      function reviewKey(d){return "gk_review_"+d;}
+      function loadReview(d){
+        var raw=localStorage.getItem(reviewKey(d));
+        if(!raw)return{t:"",i:[]};
+        try{var o=JSON.parse(raw);if(o&&typeof o==="object")return{t:o.t||"",i:o.i||[]};}
+        catch(e){}
+        return{t:raw,i:[]};
+      }
+      function saveReview(d,o){localStorage.setItem(reviewKey(d),JSON.stringify(o));}
+
+      /* ================= 总体进度 ================= */
+      function dayDone(day){
+        var c=loadPlan(day.date),d=0;
+        for(var k in c){if(c[k]&&+k<day.tasks.length)d++;}
+        return Math.min(d,day.tasks.length);
+      }
+      function updateOverall(){
+        var total=0,done=0;
+        db.plan.forEach(function(day){total+=day.tasks.length;done+=dayDone(day);});
+        $("ovTotal").textContent=total;
+        $("ovDone").textContent=done;
+        $("ovRate").innerHTML=(total?Math.round(done/total*100):0)+"<em>%</em>";
+        var streak=calcStreak();
+        $("ovStreak").textContent=streak;
+        var note="";
+        if(todayIso<db.plan[0].date){note="计划 "+db.plan[0].date.slice(5).replace("-","/")+" 启动,还有 "+(Math.round((new Date(db.plan[0].date)-new Date(todayIso))/86400000))+" 天 · 目前可先熟悉安排";}
+        else if(streak>0){note="已连续 "+streak+" 天全部完成,保持节奏!";}
+        else{note="勾完当天全部任务即计为「达标日」";}
+        $("ovNote").textContent=note;
+      }
+      function calcStreak(){
+        var streak=0;
+        var t=new Date(todayIso+"T00:00:00");
+        for(var back=0;back<420;back++){
+          var dt=new Date(t.getTime()-back*86400000);
+          var iso=fmt(dt);
+          if(iso<db.plan[0].date)break;
+          var day=null;
+          for(var i=0;i<db.plan.length;i++){if(db.plan[i].date===iso){day=db.plan[i];break;}}
+          if(!day)continue;
+          if(iso>todayIso)continue;
+          if((day.type||"").indexOf("休息")>-1)continue;
+          var total=day.tasks.length,done=dayDone(day);
+          if(iso===todayIso){
+            if(total>0&&done>=total)streak++;
+            continue;
+          }
+          if(total>0&&done>=total)streak++;
+          else break;
+        }
+        return streak;
+      }
+
+      /* ================= 阶段跳转 select ================= */
+      function renderStageSel(){
+        var sel=$("stageSel");sel.innerHTML="";
+        db.stages.forEach(function(s){
+          var opt=document.createElement("option");
+          opt.value=s.id;
+          opt.textContent=(s.id==="H"?"":"阶段"+s.id+" · ")+s.name+"("+s.range+")";
+          sel.appendChild(opt);
+        });
+        var st=stageOf(db.plan[curIdx].stage);
+        if(st)sel.value=st.id;
+      }
+      $("stageSel").addEventListener("change",function(){
+        for(var j=0;j<db.plan.length;j++){
+          if(db.plan[j].stage===$("stageSel").value){curIdx=j;renderDay();break;}
+        }
+      });
+
+      /* ================= 每日渲染 ================= */
+      var editing=false;
+      function renderDay(){
+        var day=db.plan[curIdx];
+        var mm=day.date.slice(5).replace("-","/");
+        $("dayDate").textContent=mm;
+        $("daySub").textContent=day.week+" · 第 "+(curIdx+1)+" / "+db.plan.length+" 天";
+
+        var metaHtml="";
+        var st=stageOf(day.stage);
+        if(st)metaHtml+='<span class="chip chip-stage">'+(st.id==="H"?"中秋国庆":"阶段"+st.id)+'</span>';
+        var tp=typeOf(day.type);
+        metaHtml+='<span class="chip '+tp.cls+'">'+tp.sym+" "+day.type+'</span>';
+        if(day.theme)metaHtml+='<span class="chip chip-theme">'+day.theme+'</span>';
+        $("dayMeta").innerHTML=metaHtml;
+        $("stageNote").textContent=st?("本阶段("+st.range+"):"+st.desc):"";
+        $("stageWrap").style.display=st?"block":"none";
+
+        var pb=$("preBanner");
+        if(todayIso<db.plan[0].date){
+          pb.textContent="计划 "+db.plan[0].date.slice(5).replace("-","/")+" 启动(明天) · 今天可先熟悉安排、准备资料";
+          pb.classList.add("show");
+        }else if(day.date>todayIso){
+          pb.textContent="这是未来日期的安排,可提前查看";
+          pb.classList.add("show");
+        }else if(day.date<todayIso){
+          pb.textContent="过去的记录 · 勾选状态保留可回看";
+          pb.classList.add("show");
+        }else{pb.classList.remove("show");}
+
+        renderTasks(day);
+        renderReview(day);
+        renderStageSel();
+        $("btnPrev").disabled=curIdx<=0;
+        $("btnNext").disabled=curIdx>=db.plan.length-1;
+      }
+
+      function renderTasks(day){
+        var checks=loadPlan(day.date);
+        var area=$("taskArea");area.innerHTML="";
+        var doneCnt=0,total=0,lastSlot=null,ul=null;
+        day.tasks.forEach(function(t,i){
+          if(t.slot!==lastSlot){
+            lastSlot=t.slot;
+            var h=document.createElement("div");
+            h.className="slot-head";h.textContent="⏱ "+t.slot;
+            area.appendChild(h);
+            ul=document.createElement("ul");ul.className="tasks";
+            area.appendChild(ul);
+          }
+          total++;
+          var isDone=!!checks[i];
+          if(isDone)doneCnt++;
+          var li=document.createElement("li");
+          li.className="task"+(isDone?" done":"");
+          li.innerHTML='<span class="check">✓</span><span class="task-lab">'+esc(t.text)+'</span>';
+          li.addEventListener("click",function(){
+            var vv=loadPlan(db.plan[curIdx].date);
+            if(vv[i]){delete vv[i];li.classList.remove("done");doneCnt--;}
+            else{vv[i]=true;li.classList.add("done");doneCnt++;toast("打卡 ✓");}
+            savePlan(db.plan[curIdx].date,vv);
+            $("progText").textContent=doneCnt+" / "+total;
+            $("progBar").style.width=(total?doneCnt/total*100:0)+"%";
+            if(doneCnt===total&&total>0)toast("今日全部完成,漂亮!🎉");
+            updateOverall();
+          });
+          ul.appendChild(li);
+        });
+        $("progText").textContent=doneCnt+" / "+total;
+        $("progBar").style.width=(total?doneCnt/total*100:0)+"%";
+      }
+
+      function esc(s){
+        return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+      }
+
+      /* ================= 每日编辑 ================= */
+      $("btnEditDay").addEventListener("click",function(){openEditor();});
+      function openEditor(){
+        editing=true;
+        var day=db.plan[curIdx];
+        $("viewMode").style.display="none";
+        $("stageJump").style.display="none";
+        var box=$("editMode");box.style.display="block";
+        var typeOpts=["正常学习","半天/5h","全真模考","休息日","考试日"];
+        var html='<div class="edit-head">'+
+          '<input id="edTheme" placeholder="当日主题" value="'+esc(day.theme)+'">'+
+          '<select id="edType">'+typeOpts.map(function(t){return '<option'+(t===day.type?" selected":"")+'>'+t+'</option>';}).join("")+'</select>'+
+          '</div><div id="edRows"></div>'+
+          '<button class="btn-add" id="edAdd">+ 添加任务</button>'+
+          '<div class="edit-actions"><button class="btn-save" id="edSave">保存</button><button class="btn-cancel" id="edCancel">取消</button></div>';
+        box.innerHTML=html;
+
+        var rowsEl=$("edRows");
+        function addRow(slot,text,origIdx){
+          var row=document.createElement("div");
+          row.className="edit-row";
+          row.innerHTML='<input class="edit-slot" placeholder="时段" value="'+esc(slot)+'">'+
+            '<textarea class="edit-text" placeholder="任务内容">'+esc(text)+'</textarea>'+
+            '<button class="edit-del" title="删除">×</button>';
+          row.querySelector(".edit-del").addEventListener("click",function(){row.remove();});
+          row._origIdx=origIdx;
+          rowsEl.appendChild(row);
+        }
+        day.tasks.forEach(function(t,i){addRow(t.slot||"",t.text||"",i);});
+        $("edAdd").addEventListener("click",function(){addRow("上午09-12","", -1);});
+        $("edCancel").addEventListener("click",closeEditor);
+        $("edSave").addEventListener("click",function(){
+          var day2=db.plan[curIdx];
+          var oldChecks=loadPlan(day2.date);
+          var rows=[].slice.call(rowsEl.querySelectorAll(".edit-row"));
+          var kept=rows.filter(function(r){return r.querySelector(".edit-text").value.trim();});
+          if(kept.length===0&&!confirm("当天没有任何任务,确定保存?"))return;
+          day2.theme=$("edTheme").value.trim();
+          day2.type=$("edType").value;
+          day2.tasks=kept.map(function(r){
+            return{slot:r.querySelector(".edit-slot").value.trim()||"不限",
+                   text:r.querySelector(".edit-text").value.trim()};
+          });
+          var nc={};
+          kept.forEach(function(r,j){if(r._origIdx>=0&&oldChecks[r._origIdx])nc[j]=true;});
+          savePlan(day2.date,nc);
+          saveDb();
+          closeEditor();
+          renderDay();updateOverall();
+          toast("已保存(勾选记录保留) ✓");
+        });
+        box.scrollIntoView({behavior:"smooth",block:"start"});
+      }
+      function closeEditor(){
+        editing=false;
+        $("editMode").style.display="none";$("editMode").innerHTML="";
+        $("viewMode").style.display="block";
+        $("stageJump").style.display="flex";
+      }
+
+      /* ================= 阶段编辑 ================= */
+      $("btnStageEdit").addEventListener("click",function(){
+        var day=db.plan[curIdx];
+        var st=stageOf(day.stage);
+        if(!st)return;
+        var wrap=$("stageWrap");
+        var note=$("stageNote"),btn=$("btnStageEdit");
+        note.style.display="none";btn.style.display="none";
+        var form=document.createElement("div");
+        form.className="stage-form";
+        form.innerHTML='<input id="stName" placeholder="阶段名称" value="'+esc(st.name)+'">'+
+          '<input id="stRange" placeholder="日期范围" value="'+esc(st.range)+'">'+
+          '<textarea id="stDesc" placeholder="阶段说明">'+esc(st.desc)+'</textarea>'+
+          '<div class="edit-actions"><button class="btn-save" id="stSave">保存</button><button class="btn-cancel" id="stCancel">取消</button></div>';
+        wrap.insertBefore(form,note);
+        form.scrollIntoView({behavior:"smooth",block:"center"});
+        $("stCancel").addEventListener("click",function(){form.remove();note.style.display="block";btn.style.display="block";});
+        $("stSave").addEventListener("click",function(){
+          st.name=$("stName").value.trim()||st.name;
+          st.range=$("stRange").value.trim()||st.range;
+          st.desc=$("stDesc").value.trim();
+          saveDb();
+          form.remove();note.style.display="block";btn.style.display="block";
+          renderDay();renderStageSel();
+          toast("阶段信息已更新 ✓");
+        });
+      });
+
+      /* ================= 复盘(文字+图片) ================= */
+      var rTimer=null;
+      function renderReview(day){
+        var rv=loadReview(day.date);
+        $("reviewBox").value=rv.t;
+        renderImgs(rv.i);
+        updCnt();
+        $("reviewSub").textContent=day.date.slice(5).replace("-","/")+" 复盘 · 计划要求:每天把结论填进来(顺序要不要调 / 补哪里)";
+      }
+      function updCnt(){
+        var v=$("reviewBox").value;
+        var n=loadReview(db.plan[curIdx].date).i.length;
+        $("reviewCnt").textContent=v.length+" 字"+(rTimer?" · 保存中…":" · 已自动保存");
+        $("btnAddImg").textContent="📷 插入图片("+n+"/5)";
+        $("btnAddImg").disabled=n>=5;
+      }
+      $("reviewBox").addEventListener("input",function(){
+        $("reviewCnt").textContent=$("reviewBox").value.length+" 字 · 保存中…";
+        clearTimeout(rTimer);
+        rTimer=setTimeout(function(){
+          var rv=loadReview(db.plan[curIdx].date);
+          rv.t=$("reviewBox").value;
+          saveReview(db.plan[curIdx].date,rv);
+          rTimer=null;updCnt();
+        },700);
+      });
+      $("btnSaveReview").addEventListener("click",function(){
+        var rv=loadReview(db.plan[curIdx].date);
+        rv.t=$("reviewBox").value;
+        saveReview(db.plan[curIdx].date,rv);
+        updCnt();toast("复盘已保存 ✓");
+      });
+
+      /* ---- 图片 ---- */
+      $("btnAddImg").addEventListener("click",function(){$("imgInput").click();});
+      $("imgInput").addEventListener("change",function(){
+        var files=[].slice.call(this.files||[]);
+        this.value="";
+        var rv=loadReview(db.plan[curIdx].date);
+        var room=5-rv.i.length;
+        if(files.length>room){toast("最多 5 张,只能再添加 "+room+" 张");files=files.slice(0,room);}
+        if(!files.length)return;
+        var pending=files.length;
+        files.forEach(function(f){
+          compressImage(f,function(dataUrl){
+            var r2=loadReview(db.plan[curIdx].date);
+            if(r2.i.length<5)r2.i.push(dataUrl);
+            saveReview(db.plan[curIdx].date,r2);
+            pending--;
+            if(pending<=0){renderImgs(r2.i);updCnt();toast("图片已插入 ✓");}
+          });
+        });
+      });
+      function compressImage(file,cb){
+        var reader=new FileReader();
+        reader.onload=function(e){
+          var img=new Image();
+          img.onload=function(){
+            try{
+              var maxW=1080,w=img.width,h=img.height,scale=Math.min(1,maxW/Math.max(w,h));
+              var cv=document.createElement("canvas");
+              cv.width=Math.max(1,Math.round(w*scale));cv.height=Math.max(1,Math.round(h*scale));
+              cv.getContext("2d").drawImage(img,0,0,cv.width,cv.height);
+              cb(cv.toDataURL("image/jpeg",0.72));
+            }catch(err){toast("图片处理失败");}
+          };
+          img.onerror=function(){toast("图片读取失败");};
+          img.src=e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+      function renderImgs(imgs){
+        var grid=$("imgGrid");grid.innerHTML="";
+        (imgs||[]).forEach(function(src,idx){
+          var cell=document.createElement("div");
+          cell.className="img-cell";
+          var im=document.createElement("img");im.src=src;im.alt="复盘图"+(idx+1);
+          im.addEventListener("click",function(){$("lightboxImg").src=src;$("lightbox").classList.add("show");});
+          var del=document.createElement("button");
+          del.className="img-del";del.textContent="×";del.title="删除";
+          del.addEventListener("click",function(ev){
+            ev.stopPropagation();
+            var rv=loadReview(db.plan[curIdx].date);
+            rv.i.splice(idx,1);
+            saveReview(db.plan[curIdx].date,rv);
+            renderImgs(rv.i);updCnt();toast("图片已删除");
+          });
+          cell.appendChild(im);cell.appendChild(del);
+          grid.appendChild(cell);
+        });
+      }
+      $("lightbox").addEventListener("click",function(){
+        this.classList.remove("show");
+      });
+
+      /* ================= 策略速查 ================= */
+      (function(){
+        var html="";
+        STRATEGY.forEach(function(s){
+          html+='<div class="strat"><h4>'+esc(s.item)+'</h4><p>'+esc(s.points)+'</p></div>';
+        });
+        $("stratArea").innerHTML=html;
+      })();
+
+      /* ================= 日历标记 ================= */
+      document.querySelectorAll(".timeline li").forEach(function(li){
+        var k=li.getAttribute("data-key");
+        var t={};try{t=JSON.parse(localStorage.getItem("gk_timeline"))||{};}catch(e){}
+        if(t[k])li.classList.add("done");
+        li.addEventListener("click",function(){
+          var tt={};try{tt=JSON.parse(localStorage.getItem("gk_timeline"))||{};}catch(e){}
+          if(tt[k]){delete tt[k];li.classList.remove("done");}
+          else{tt[k]=true;li.classList.add("done");toast("已标记该节点 ✓");}
+          localStorage.setItem("gk_timeline",JSON.stringify(tt));
+        });
+      });
+
+      /* ================= 日期导航 ================= */
+      $("btnPrev").addEventListener("click",function(){if(curIdx>0&&!editing){curIdx--;renderDay();}});
+      $("btnNext").addEventListener("click",function(){if(curIdx<db.plan.length-1&&!editing){curIdx++;renderDay();}});
+      $("btnToday").addEventListener("click",function(){
+        if(editing)return;
+        curIdx=0;
+        for(var i=0;i<db.plan.length;i++){
+          if(db.plan[i].date===todayIso){curIdx=i;break;}
+          if(db.plan[i].date<todayIso)curIdx=i;
+        }
+        renderDay();
+      });
+
+      /* ================= 离线 / toast / SW ================= */
+      function updateOffline(){$("offlineStrip").classList.toggle("show",navigator.onLine===false);}
+      window.addEventListener("online",updateOffline);
+      window.addEventListener("offline",updateOffline);
+      updateOffline();
+
+      var toastTimer;
+      function toast(msg){
+        var t=$("toast");t.textContent=msg;t.classList.add("show");
+        clearTimeout(toastTimer);toastTimer=setTimeout(function(){t.classList.remove("show");},1600);
+      }
+
+      /* ---- 调试/测试接口 ---- */
+      window.__gk={
+        setToday:function(iso){todayIso=iso;curIdx=locate();renderDay();updateOverall();},
+        calcStreak:calcStreak,
+        db:db
+      };
+
+      /* ---- 首次渲染 ---- */
+      renderDay();
+      updateOverall();
+
+      if("serviceWorker" in navigator&&(location.protocol==="https:"||location.hostname==="localhost"||location.hostname==="127.0.0.1")){
+        window.addEventListener("load",function(){
+          navigator.serviceWorker.register("./sw.js").catch(function(){});
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
