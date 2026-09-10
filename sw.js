@@ -1,5 +1,5 @@
 /* 公考备考 · 每日勾选 —— Service Worker(离线缓存) */
-const CACHE = 'gongkao-pwa-v3';
+const CACHE = 'gongkao-pwa-v4';
 const ASSETS = [
   './',
   './index.html',
