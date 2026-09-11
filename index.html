@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover, user-scalable=no">
   <title>公考备考 · 每日勾选</title>
   <meta name="description" content="公考全职备考:每日详细计划勾选(可编辑)、每日复盘(可插图)、总体进度、报考日历,离线可用">
   <meta name="theme-color" content="#009fe8">
@@ -292,6 +292,31 @@
     @media(min-width:520px){
       .hdr h1{font-size:26px;}
     }
+    /* ===== 倒计时日期编辑 ===== */
+    .mini-edit{margin-left:auto; font-size:11px; font-weight:600; color:var(--blue-d); background:#e8f5fe; border:none; border-radius:999px; padding:3px 10px; cursor:pointer; flex:none;}
+    .card h2{position:relative;}
+    .dd-edit{width:100%; margin-top:6px; border:1.5px solid #dfe9f1; border-radius:9px; padding:6px 8px; font-size:13px; font-family:inherit; background:#fbfdfe; color:var(--ink);}
+    /* ===== 报考日历日期可编辑 ===== */
+    .tl-date{cursor:pointer;}
+    .tl-date-input{font-size:11px; color:var(--ink); border:1px solid var(--blue); border-radius:6px; padding:2px 4px; width:90px; font-family:inherit;}
+    /* ===== 卡片整卡编辑 ===== */
+    .card-edit-btn{margin-left:auto; font-size:11px; font-weight:600; color:var(--blue-d); background:#e8f5fe; border:none; border-radius:999px; padding:3px 10px; cursor:pointer; flex:none;}
+    .card-edit-area{width:100%; min-height:120px; border:1.5px solid #dfe9f1; border-radius:12px; padding:10px; font-size:13px; font-family:inherit; line-height:1.6; background:#fbfdfe; resize:vertical; box-sizing:border-box; margin-bottom:10px;}
+    /* ===== 导出弹窗 ===== */
+    .modal-mask{display:none; position:fixed; inset:0; background:rgba(10,16,24,.5); z-index:300; align-items:flex-end; justify-content:center;}
+    .modal-mask.show{display:flex;}
+    .modal-box{background:#fff; width:100%; max-width:680px; border-radius:18px 18px 0 0; max-height:86vh; display:flex; flex-direction:column; overflow:hidden;}
+    .modal-head{display:flex; align-items:center; justify-content:space-between; padding:14px 16px; border-bottom:1px solid #eef2f6;}
+    .modal-head b{font-size:15px;}
+    .modal-close{border:none; background:none; font-size:22px; color:var(--ink-l); cursor:pointer; line-height:1;}
+    .modal-body{padding:14px 16px; overflow:auto; flex:1;}
+    .modal-body textarea{width:100%; min-height:300px; border:1px solid #e6eef4; border-radius:12px; padding:10px 12px; font-size:12.5px; line-height:1.7; font-family:ui-monospace,Menlo,Consolas,monospace; background:#fbfdfe; resize:vertical; box-sizing:border-box;}
+    .modal-foot{display:flex; gap:10px; padding:12px 16px; border-top:1px solid #eef2f6;}
+    .modal-foot button{flex:1; height:40px; border-radius:11px; font-size:13px; font-weight:700; cursor:pointer; border:none;}
+    .modal-foot .m-copy{background:var(--blue); color:#fff;}
+    .modal-foot .m-down{background:#eef2f6; color:var(--ink);}
+    .modal-foot .m-json{background:#fff; color:var(--blue-d); border:1px solid #dfe9f1;}
+
   </style>
 </head>
 <body>
@@ -300,7 +325,6 @@
   <div class="hdr">
     <div class="hdr-txt">
       <h1>公考备考 · 每日勾选</h1>
-      <p>主攻:司法所 · 基层检察院 | 目标:行测 72 / 申论 68</p>
       <span class="badge" id="todayLabel"></span>
     </div>
     <svg class="cat" viewBox="0 0 512 512" aria-hidden="true">
@@ -331,14 +355,21 @@
 
     <!-- 双倒计时 -->
     <div class="card">
-      <h2><span class="dot"></span>关键倒计时</h2>
+      <h2><span class="dot"></span>关键倒计时<span class="mini-edit" id="ddEditBtn">改日期</span></h2>
       <div class="dd-row main">
         <div class="dd-name">广东省考笔试<small>主战场 · 预计 12/06(周日)</small></div>
         <div class="dd-num"><span id="ddSk">--</span><small> 天 <span id="ddSkH">--</span> 时</small></div>
+        <input type="date" class="dd-edit" id="edSk" hidden>
       </div>
       <div class="dd-row">
         <div class="dd-name">国考笔试<small>顺便参加、当作练兵 · 预计 11/28(周六)</small></div>
         <div class="dd-num"><span id="ddGk">--</span><small> 天 <span id="ddGkH">--</span> 时</small></div>
+        <input type="date" class="dd-edit" id="edGk" hidden>
+      </div>
+      <div class="dd-row">
+        <div class="dd-name">深圳事业编市属笔试<small>留深保底 · 预计 12/27(周六)</small></div>
+        <div class="dd-num"><span id="ddSy">--</span><small> 天 <span id="ddSyH">--</span> 时</small></div>
+        <input type="date" class="dd-edit" id="edSy" hidden>
       </div>
     </div>
 
@@ -546,6 +577,7 @@
     </div>
 
     <div class="foot">
+      <button class="btn-mini" id="btnExport" style="max-width:240px;margin:0 auto 10px;display:block;">⬇ 导出执行记录(任务+复盘)</button>
       数据源自《2026国考_广东省考_全职备考计划表_含深圳事业编》 · 均为预计时间,以官方公告为准<br>
       勾选/复盘/图片/编辑均保存在本机 · 清除浏览器数据前请注意备份
     </div>
@@ -554,11 +586,28 @@
   <div id="lightbox"><img id="lightboxImg" alt=""></div>
   <div id="toast"></div>
 
+  <div class="modal-mask" id="exportMask">
+    <div class="modal-box">
+      <div class="modal-head"><b>执行记录导出</b><span class="modal-close" id="exportClose">×</span></div>
+      <div class="modal-body">
+        <div class="exp-filter" style="font-size:12px;color:var(--ink-l);margin-bottom:8px;display:flex;align-items:center;flex-wrap:wrap;gap:6px;">导出范围：起<input type="date" id="expStart" style="font-size:12px;padding:2px 4px;"> 止<input type="date" id="expEnd" style="font-size:12px;padding:2px 4px;"><button class="btn-mini" id="expApply">应用</button></div>
+        <textarea id="exportText" readonly></textarea>
+      </div>
+      <div class="modal-foot">
+        <button class="m-copy" id="exportCopy">复制文本</button>
+        <button class="m-down" id="exportMd">下载.md</button>
+        <button class="m-json" id="exportJson">下载完整JSON(含图片)</button>
+      </div>
+    </div>
+  </div>
+
   <script src="./plan-data.js"></script>
   <script>
     (function(){
       "use strict";
       var $=function(id){return document.getElementById(id);};
+      document.addEventListener("gesturestart",function(e){e.preventDefault();});
+      document.addEventListener("dblclick",function(e){if(e.target.tagName!=="INPUT"&&e.target.tagName!=="TEXTAREA"&&e.target.tagName!=="BUTTON")e.preventDefault();},{passive:false});
       function p2(n){return (n<10?"0":"")+n;}
       function fmt(d){return d.getFullYear()+"-"+p2(d.getMonth()+1)+"-"+p2(d.getDate());}
 
@@ -588,20 +637,46 @@
       var TODAY=new Date();
       $("todayLabel").textContent=(TODAY.getMonth()+1)+"月"+TODAY.getDate()+"日 · 周"+week[TODAY.getDay()]+" 奋进中";
 
+      /* ---- 考试目标日期(可编辑,覆盖层) ---- */
+      var DEFAULT_EXAM={guokao:"2026-11-28",shengkao:"2026-12-06",shiye:"2026-12-27"};
+      var EXAM_KEYMAP={"k-gk-exam":"guokao","k-sk-exam":"shengkao","k-sy-exam":"shiye"};
+      function loadExamDates(){try{return JSON.parse(localStorage.getItem("gk_exam_dates"))||{};}catch(e){return{};}}
+      function saveExamDates(o){localStorage.setItem("gk_exam_dates",JSON.stringify(o));}
+      function getExam(key){var d=loadExamDates();return d[key]||DEFAULT_EXAM[key];}
+      function setExamDate(key,iso){var d=loadExamDates();d[key]=iso;saveExamDates(d);}
+
       /* ---- 双倒计时 ---- */
       function ddTick(){
         var now=new Date();
         function calc(iso){
+          if(!iso)return[0,0];
           var t=new Date(iso+"T09:00:00");
           var diff=t-now;
           if(diff<=0)return[0,0];
           return[Math.floor(diff/86400000),Math.floor(diff%86400000/3600000)];
         }
-        var sk=calc(META.examShengkao),gk=calc(META.examGuokao);
+        var sk=calc(getExam("shengkao")),gk=calc(getExam("guokao")),sy=calc(getExam("shiye"));
         $("ddSk").textContent=sk[0];$("ddSkH").textContent=p2(sk[1]);
         $("ddGk").textContent=gk[0];$("ddGkH").textContent=p2(gk[1]);
+        $("ddSy").textContent=sy[0];$("ddSyH").textContent=p2(sy[1]);
       }
       ddTick();setInterval(ddTick,30000);
+
+      /* ---- 倒计时日期编辑 ---- */
+      (function(){
+        var fields=[["edSk","shengkao"],["edGk","guokao"],["edSy","shiye"]];
+        fields.forEach(function(f){var inp=$(f[0]);if(inp)inp.value=getExam(f[1]);});
+        var editMode=false;
+        $("ddEditBtn").addEventListener("click",function(){
+          editMode=!editMode;
+          fields.forEach(function(f){$(f[0]).hidden=!editMode;});
+          this.textContent=editMode?"保存":"改日期";
+          if(!editMode){
+            fields.forEach(function(f){var v=$(f[0]).value;if(v)setExamDate(f[1],v);});
+            ddTick();toast("考试日期已更新 ✓");
+          }
+        });
+      })();
 
       /* ---- 工具 ---- */
       function typeOf(t){
@@ -982,6 +1057,54 @@
         });
       });
 
+      /* ================= 日历日期可编辑(联动倒计时) ================= */
+      (function(){
+        document.querySelectorAll(".timeline li").forEach(function(li){
+          var k=li.getAttribute("data-key");
+          var dateEl=li.querySelector(".tl-date");
+          if(!dateEl)return;
+          var isExam=EXAM_KEYMAP[k];
+          var tlDates={};try{tlDates=JSON.parse(localStorage.getItem("gk_tl_dates"))||{};}catch(e){}
+          if(tlDates[k])dateEl.textContent=tlDates[k];
+          dateEl.addEventListener("click",function(ev){
+            ev.stopPropagation();
+            if(li.classList.contains("date-editing"))return;
+            li.classList.add("date-editing");
+            var cur=tlDates[k]||dateEl.textContent.trim();
+            var input=document.createElement("input");
+            input.type="text";input.className="tl-date-input";input.value=cur;
+            input.placeholder="如 12-06 或 2026-12-06";
+            dateEl.style.display="none";
+            li.insertBefore(input,dateEl.nextSibling);
+            input.focus();
+            function commit(){
+              var val=input.value.trim();
+              if(val){
+                tlDates[k]=val;localStorage.setItem("gk_tl_dates",JSON.stringify(tlDates));
+                dateEl.textContent=val;
+                if(isExam){
+                  var iso=parseDateLike(val);
+                  if(iso)setExamDate(isExam,iso);
+                  ddTick();
+                }
+              }
+              li.classList.remove("date-editing");
+              input.remove();dateEl.style.display="";
+            }
+            input.addEventListener("blur",commit);
+            input.addEventListener("keydown",function(e){if(e.key==="Enter")input.blur();});
+          });
+        });
+        function parseDateLike(s){
+          s=s.replace(/[()（）]/g,"").replace(/预计/g,"").replace(/前后/g,"").replace(/起/g,"").trim();
+          var m=s.match(/(\d{4})-(\d{1,2})-(\d{1,2})/);
+          if(m)return m[1]+"-"+p2(+m[2])+"-"+p2(+m[3]);
+          m=s.match(/(\d{1,2})-(\d{1,2})/);
+          if(m)return "2026-"+p2(+m[1])+"-"+p2(+m[2]);
+          return null;
+        }
+      })();
+
       /* ================= 日期导航 ================= */
       $("btnPrev").addEventListener("click",function(){if(curIdx>0&&!editing){curIdx--;renderDay();}});
       $("btnNext").addEventListener("click",function(){if(curIdx<db.plan.length-1&&!editing){curIdx++;renderDay();}});
@@ -1014,6 +1137,34 @@
         var h=card.querySelector("h2");
         if(h)h.addEventListener("click",function(){card.classList.toggle("open");});
       });
+      /* ---- 选岗/策略卡整卡可编辑 ---- */
+      ["cardRoute","cardStrategy"].forEach(function(id){
+        var card=$(id); if(!card)return;
+        var h=card.querySelector("h2");
+        if(!h)return;
+        var btn=document.createElement("span");
+        btn.className="card-edit-btn";btn.textContent="整卡编辑";
+        h.appendChild(btn);
+        var body=card.querySelector(".card-body");
+        var saved=localStorage.getItem("gk_card_"+id);
+        if(saved){body.innerHTML=saved;}
+        btn.addEventListener("click",function(ev){
+          ev.stopPropagation();
+          if(btn.dataset.editing==="1"){
+            body.innerHTML=document.getElementById("cardEditTmp_"+id).value;
+            localStorage.setItem("gk_card_"+id,body.innerHTML);
+            document.getElementById("cardEditTmp_"+id).remove();
+            btn.dataset.editing="0";btn.textContent="整卡编辑";
+            toast("已保存该卡内容 ✓");
+          }else{
+            var ta=document.createElement("textarea");
+            ta.className="card-edit-area";ta.id="cardEditTmp_"+id;ta.value=body.innerHTML;
+            body.insertBefore(ta,body.firstChild);
+            btn.dataset.editing="1";btn.textContent="保存";
+            ta.scrollIntoView({behavior:"smooth",block:"center"});
+          }
+        });
+      });
 
       /* ---- 计划更新:载入新版(保留复盘,重置勾选) ---- */
       function applyNewPlan(){
@@ -1037,6 +1188,77 @@
         if(confirm("载入新计划？\n\n· 任务更新为 v2 版(五弱项攻坚+申论提前)\n· 你的复盘记录(文字+图片)全部保留\n· 各日勾选将重置")){applyNewPlan();}
       });
       $("btnUpgradeLater").addEventListener("click",function(){$("upgradeBanner").classList.remove("show");});
+
+      /* ================= 导出执行记录 ================= */
+      function buildExport(opt){
+        opt=opt||{};var s=opt.start||"",e=opt.end||"";
+        var out="# 公考备考 · 执行记录导出\n";
+        out+="导出时间:"+fmt(new Date())+"\n";
+        if(s||e)out+="时间段:"+(s||"最早")+" ~ "+(e||"最晚")+"\n";
+        out+="\n";
+        var any=false;
+        db.plan.forEach(function(day){
+          if(s&&day.date<s)return;
+          if(e&&day.date>e)return;
+          var rv=loadReview(day.date);
+          var revText=rv.t||"";var revImgs=rv.i||[];
+          var checks=loadPlan(day.date);
+          var tasks=day.tasks||[];
+          var hasDone=false;for(var kk in checks){if(checks[kk]){hasDone=true;break;}}
+          if(tasks.length===0&&!revText&&!hasDone&&revImgs.length===0)return;
+          any=true;
+          out+="## "+day.date+" "+(day.week||"")+" · "+(day.type||"")+(day.theme?(" · "+day.theme):"")+"\n";
+          out+="【实际任务】 ✅划掉=已做 ⬜未划掉=未做\n";
+          if(tasks.length===0){out+="(当日无任务记录)\n";}
+          else{
+            var dL=[],tL=[];
+            tasks.forEach(function(t,i){(checks[i]?dL:tL).push("["+(t.slot||"")+"] "+t.text);});
+            out+="✅ 已做（划掉 "+dL.length+" 项）：\n"+(dL.length?dL.map(function(x){return "  - "+x;}).join("\n")+"\n":"  (无)\n");
+            out+="⬜ 未做（未划掉 "+tL.length+" 项）：\n"+(tL.length?tL.map(function(x){return "  - "+x;}).join("\n")+"\n":"  (无)\n");
+          }
+          out+="【复盘】\n"+(revText||"(无)")+"\n";
+          if(revImgs.length)out+="(附 "+revImgs.length+" 张复盘图片,见完整JSON)\n";
+          out+="\n";
+        });
+        if(!any)out+="（暂无已执行的任务或复盘记录）\n";
+        return out;
+      }
+      function todayISO(){var d=new Date();var p=function(n){return(n<10?"0":"")+n;};return d.getFullYear()+"-"+(p(d.getMonth()+1))+"-"+p(d.getDate());}
+      function genExport(){var opt={start:$("expStart").value||"",end:$("expEnd").value||""};$("exportText").value=buildExport(opt);}
+      function openExport(){
+        if(!$("expStart").value){$("expStart").value=db.plan.length?db.plan[0].date:todayISO();}
+        if(!$("expEnd").value){$("expEnd").value=todayISO();}
+        genExport();$("exportMask").classList.add("show");
+      }
+      $("btnExport").addEventListener("click",openExport);
+      $("expStart").addEventListener("change",genExport);
+      $("expEnd").addEventListener("change",genExport);
+      $("expApply").addEventListener("click",genExport);
+      $("exportClose").addEventListener("click",function(){$("exportMask").classList.remove("show");});
+      $("exportMask").addEventListener("click",function(e){if(e.target===this)$("exportMask").classList.remove("show");});
+      $("exportCopy").addEventListener("click",function(){
+        var ta=$("exportText");ta.select();
+        try{document.execCommand("copy");toast("已复制到剪贴板 ✓");}
+        catch(e){if(navigator.clipboard){navigator.clipboard.writeText(ta.value).then(function(){toast("已复制 ✓");});}}
+      });
+      $("exportMd").addEventListener("click",function(){
+        var blob=new Blob([$("exportText").value],{type:"text/markdown;charset=utf-8"});
+        var a=document.createElement("a");a.href=URL.createObjectURL(blob);
+        a.download="备考执行记录_"+fmt(new Date())+".md";a.click();
+      });
+      $("exportJson").addEventListener("click",function(){
+        var s=$("expStart").value||"",e=$("expEnd").value||"";
+        var data={exportedAt:fmt(new Date()),range:(s||"最早")+" ~ "+(e||"最晚"),days:[]};
+        db.plan.forEach(function(day){
+          if(s&&day.date<s)return;
+          if(e&&day.date>e)return;
+          data.days.push({date:day.date,week:day.week,type:day.type,theme:day.theme,
+            tasks:day.tasks,checks:loadPlan(day.date),review:loadReview(day.date)});
+        });
+        var blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+        var a=document.createElement("a");a.href=URL.createObjectURL(blob);
+        a.download="备考执行记录_完整_"+fmt(new Date())+".json";a.click();
+      });
 
       /* ================= 离线 / toast / SW ================= */
       function updateOffline(){$("offlineStrip").classList.toggle("show",navigator.onLine===false);}
